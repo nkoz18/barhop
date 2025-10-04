@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -149,9 +150,11 @@
 
         <p class="mt-2 text-gray-800 font-semibold">Operation: Birthday Bar Hop</p>
 
+        <!-- ✨ Rewritten intro paragraph (funnier, punnier, and all floofs loved equally) -->
         <p class="text-gray-700">
-          Celebrate our favorite structural engineer (Michigan strong) with the Ockley Green renegades—Nikita, Monica, Mindy &amp; Keith, Linnea &amp; Aaron!
-          Dogs are cheering from home: Hooch (lead husky), Osho, Luna, and Appa. 🐾
+          We’re raising beams <em>and</em> glasses for our favorite structural engineer
+          (Michigan: built to code) with the Ockley Green renegades—Nikita, Monica, Mindy &amp; Keith, Linnea &amp; Aaron!
+          The home crowd of furry friends—Hooch, Osho, Luna, and Appa—are co-captains of the cuddle league, all equally boop-worthy. 🐾
         </p>
 
         <!-- Plan notes (start + suggestions) -->
@@ -221,41 +224,47 @@
       return `<span class="${cls}" aria-label="${rating} out of 5 paws"><span aria-hidden="true">${full}${empty}</span></span>`;
     }
 
-    // ---- Bars (your provided data), with lighter dog refs + personal touches; Bible Club removed ----
+    // ---- Bars (updated with explicit CSV highlights for drinks/NA/food) ----
     const bars = [
       {
         name: "Angel Face",
-        vibe: "European-style, intimate, and alluring. No printed menu—describe your flavors and they’ll engineer something Leah-level precise.",
+        vibe: "European-style, intimate, alluring—describe your flavors and they’ll engineer it. Perfect place to ‘spec and sip’.",
         lat: 45.5232, lng: -122.6371,
         instagramUrl: "https://www.instagram.com/angelfaceportland/",
         menuUrl: "https://www.angelfaceportland.com/pages/menu",
         gmapsUrl: "https://www.google.com/maps/search/?api=1&query=14+NE+28th+Ave,+Portland,+OR+97232",
         distanceMi: 3.4,
         aviationAdj: true,
+        highlightedDrink: "Dealer's Choice (Bespoke)",
+        highlightedNADrink: "Dealer's Choice (Custom)",
+        highlightedFood: "Steak Tartare with Oysters",
         hoochReview: {
           rating: 5, verdict: "Full-Body Zoomies",
-          sniff: "Juniper, a whisper of floral, and bright citrus—clean as fresh snow.",
-          chow: "Steak frites and oysters play nice with the cocktails.",
-          perks: "NA bespoke drinks on request; water shows up chilled.",
-          vibe: "Hand‑painted room; quiet conversations.",
+          sniff: "Juniper, floral whispers, bright citrus—clean as fresh snow.",
+          chow: "Steak tartare plays wing-pup to oysters—elegant and chonk-worthy.",
+          perks: "NA bespoke drinks on request; water arrives pre-chilled.",
+          vibe: "Hand-painted room; quiet conversations.",
           haute: "Dealer’s choice here really means choice.",
           why: "bespoke magic + cozy seats"
         }
       },
       {
         name: "Deadshot",
-        vibe: "Avant‑garde cocktail lab. Great spot for Mindy & Keith to flex those coffee‑roaster palates while the crew debates flavor science.",
+        vibe: "Avant-garde cocktail lab—where flavor science meets fun. Great for a group ‘sip-posium’.",
         lat: 45.5074, lng: -122.6548,
         instagramUrl: "https://www.instagram.com/deadshotpdx/",
         menuUrl: "https://www.deadshotpdx.com/menu",
         gmapsUrl: "https://www.google.com/maps/search/?api=1&query=2133+SE+11th+Ave,+Portland,+OR+97214",
         distanceMi: 4.2,
         aviationAdj: false,
+        highlightedDrink: "Blood Orange Gimlet",
+        highlightedNADrink: "Tropic Noir",
+        highlightedFood: "French Onion Brie Burger",
         hoochReview: {
           rating: 3, verdict: "Polite Sit",
-          sniff: "Bitters, citrus, and a little mad‑scientist energy.",
-          chow: "Smart snacks; save room for sips.",
-          perks: "Zero‑proof riffs if you ask.",
+          sniff: "Bitters, citrus, and a little mad-scientist energy.",
+          chow: "French Onion Brie Burger = burger-and-beakers bliss.",
+          perks: "Zero-proof riffs like Tropic Noir.",
           vibe: "Cocktail nerd HQ; Aaron can order in multiple languages.",
           haute: "Bring curiosity; leave dogma.",
           why: "inventive but niche"
@@ -263,37 +272,43 @@
       },
       {
         name: "Driftwood Room",
-        vibe: "1950s hotel lounge—moody and glamorous. Prime spot to plot winter‑sports trips before the snow melts.",
+        vibe: "1950s hotel lounge—moody and glamorous; perfect for plotting winter-sports shenanigans.",
         lat: 45.5208, lng: -122.6878,
         instagramUrl: "https://www.instagram.com/hotel_deluxe/",
         menuUrl: "https://www.hoteldeluxe.com/dining/driftwood-room/driftwood-menu/",
         gmapsUrl: "https://www.google.com/maps/search/?api=1&query=729+SW+15th+Ave,+Portland,+OR+97205",
         distanceMi: 3.3,
         aviationAdj: true,
+        highlightedDrink: "Marigolds & Daffodils",
+        highlightedNADrink: "Calypso's Song",
+        highlightedFood: "Driftwood Burger (Wagyu)",
         hoochReview: {
           rating: 4, verdict: "Big Tail Wags",
           sniff: "Grapefruit and elderflower—bright and spritzy.",
-          chow: "Classy olives, crisp fries.",
-          perks: "Thoughtful NA section.",
-          vibe: "Dim, plush, and relaxed.",
-          haute: "Old‑Hollywood vibe without the drama.",
+          chow: "Wagyu Driftwood Burger—classic, plush, and well-structured.",
+          perks: "Thoughtful NA list (try Calypso’s Song).",
+          vibe: "Dim, plush, relaxed.",
+          haute: "Old-Hollywood vibe without the drama.",
           why: "floral fizz + comfy booths"
         }
       },
       {
         name: "Expatriate",
-        vibe: "Atmospheric and freewheeling with balanced cocktails and craveable snacks. Good music, small room—arrive ready.",
+        vibe: "Atmospheric with balanced cocktails and craveable snacks; playlist begs for one more round.",
         lat: 45.5624, lng: -122.6346,
         instagramUrl: "https://www.instagram.com/expatriatepdx/",
         menuUrl: "http://expatriatepdx.com/cocktails",
         gmapsUrl: "https://www.google.com/maps/search/?api=1&query=5424+NE+30th+Avenue,+Portland,+OR+97211",
         distanceMi: 2.2,
         aviationAdj: true,
+        highlightedDrink: "Starling",
+        highlightedNADrink: "Dealer's Choice (Custom)",
+        highlightedFood: "Expatriate Nacho",
         hoochReview: {
           rating: 5, verdict: "Full-Body Zoomies",
-          sniff: "Citrus and spice with just‑right balance.",
-          chow: "Those nachos? Serious group fuel.",
-          perks: "House sodas/shrubs for NA folks.",
+          sniff: "Citrus and spice with just-right balance.",
+          chow: "Expatriate Nacho = power snack for the pack.",
+          perks: "House shrubs/sodas or NA dealer’s choice.",
           vibe: "Dim, lively, playlist on point.",
           haute: "High hit rate on both food and drinks.",
           why: "power snacks + floral notes"
@@ -301,18 +316,21 @@
       },
       {
         name: "Function NE",
-        vibe: "Rotating brewery pop‑ups—perfect for a sampler flight and a casual catch‑up.",
+        vibe: "Rotating brewery pop-ups—perfect for sampler flights and casual catch-ups.",
         lat: 45.5590, lng: -122.6448,
         instagramUrl: "https://www.instagram.com/functionpdx/",
         menuUrl: "https://untappd.com/v/function-ne/12485099",
         gmapsUrl: "https://www.google.com/maps/search/?api=1&query=2006+NE+Alberta+St,+Portland,+OR+97211",
         distanceMi: 1.7,
         aviationAdj: false,
+        highlightedDrink: "N/A (Beer-focused)",
+        highlightedNADrink: "Standard Sodas",
+        highlightedFood: "N/A (Outside food welcome)",
         hoochReview: {
           rating: 3, verdict: "Polite Sit",
           sniff: "Fresh hops; occasional cider cameo.",
-          chow: "BYO snacks or nearby bites.",
-          perks: "Usually cider/kombucha/NA cans.",
+          chow: "Outside food welcome—snack strategy is yours.",
+          perks: "Usually cider/kombucha/NA cans or sodas.",
           vibe: "Alberta energy; easy to mingle.",
           haute: "Great for beer explorers.",
           why: "rotating taps + options"
@@ -320,37 +338,43 @@
       },
       {
         name: "Hey Love",
-        vibe: "Plant‑filled ‘indoor jungle’ with tropical vibes and fun slushies. Feels like a mini vacation downtown.",
+        vibe: "Plant-filled ‘indoor jungle’ with tropical vibes and fun slushies—a mini vacation downtown.",
         lat: 45.5228, lng: -122.6562,
         instagramUrl: "https://www.instagram.com/heylovepdx/",
         menuUrl: "https://www.heylovepdx.com/dinner",
         gmapsUrl: "https://www.google.com/maps/search/?api=1&query=920+E+Burnside+St,+Portland,+OR+97214",
         distanceMi: 3.2,
         aviationAdj: false,
+        highlightedDrink: "Clover Club G & T",
+        highlightedNADrink: "Rose City Swizzle",
+        highlightedFood: "JOJOS! (Crispy Fried Potato Wedges)",
         hoochReview: {
           rating: 3, verdict: "Polite Sit",
-          sniff: "Fruit, herbs, and sunshine‑adjacent.",
-          chow: "Tasty bites; save room for wedges.",
-          perks: "Robust NA list and frozen treats.",
+          sniff: "Fruit, herbs, sunshine-adjacent.",
+          chow: "JOJOS!—peak wedge-funded joy.",
+          perks: "Robust NA list—start with Rose City Swizzle.",
           vibe: "Colorful, lively, very ‘Portland’.",
-          haute: "Mood booster; easy crowd‑pleaser.",
-          why: "playful menu; sweet‑leaning"
+          haute: "Mood booster; easy crowd-pleaser.",
+          why: "playful menu; sweet-leaning"
         }
       },
       {
         name: "Moloko",
-        vibe: "Coral‑reef aquariums set the mood—cozy, modern, and a touch neon. Great end‑of‑week decompression for Linnea.",
+        vibe: "Coral-reef aquariums meet cozy modern nook—neon-tinted decompression zone.",
         lat: 45.5518, lng: -122.6763,
         instagramUrl: "https://www.instagram.com/molokopdx/",
         menuUrl: "https://www.molokopdx.com/menu-page",
         gmapsUrl: "https://www.google.com/maps/search/?api=1&query=3967+N+Mississippi+Ave,+Portland,+OR+97227",
         distanceMi: 1.1,
         aviationAdj: true,
+        highlightedDrink: "Company Party",
+        highlightedNADrink: "Madame Shirley",
+        highlightedFood: "Margherita Pizza",
         hoochReview: {
           rating: 4, verdict: "Big Tail Wags",
           sniff: "Lavender and lemon with bubbles.",
-          chow: "Small plates; easy sharing.",
-          perks: "NA cocktails on menu.",
+          chow: "Margherita Pizza for shared slices and smiles.",
+          perks: "NA cocktails like the Madame Shirley.",
           vibe: "Purple glow; relaxed patio when open.",
           haute: "Comfy nook with personality.",
           why: "floral spritz + hideaway"
@@ -358,36 +382,42 @@
       },
       {
         name: "Roadside Attraction",
-        vibe: "Quirky, cash‑only time capsule with a great fire‑pit patio. Peak ‘keep Portland weird’ energy.",
+        vibe: "Quirky, cash-only time capsule with a great fire-pit patio—maximum ‘keep Portland weird’.",
         lat: 45.5160, lng: -122.6535,
         instagramUrl: "https://www.instagram.com/roadsideattractionpdx/",
         menuUrl: "http://places.singleplatform.com/roadside-attraction/menu",
         gmapsUrl: "https://www.google.com/maps/search/?api=1&query=1000+SE+12th+Ave,+Portland,+OR+97214",
         distanceMi: 3.6,
         aviationAdj: false,
+        highlightedDrink: "N/A (Dive Bar)",
+        highlightedNADrink: "Standard Sodas",
+        highlightedFood: "French Dip Sandwich",
         hoochReview: {
           rating: 3, verdict: "Polite Sit",
           sniff: "Campfire, citrus, a little fryer sizzle.",
           chow: "French dip and friends—simple, satisfying.",
-          perks: "Sodas & low‑key sips for NA.",
-          vibe: "Eclectic patio; story‑fuel for days.",
+          perks: "Sodas & low-key sips for NA.",
+          vibe: "Eclectic patio; story-fuel for days.",
           haute: "Bring cash and a sense of humor.",
           why: "fire pits + quirks"
         }
       },
       {
         name: "Slammer Tavern",
-        vibe: "Old‑school dive with strong pours, string lights, and a friendly crowd. Wallet‑friendly after‑party spot.",
+        vibe: "Old-school dive with strong pours, string lights, and a friendly crowd—wallet-friendly after-party.",
         lat: 45.5191, lng: -122.6574,
         instagramUrl: "https://www.instagram.com/slammertavern/",
         menuUrl: "http://places.singleplatform.com/slammers-16/menu",
         gmapsUrl: "https://www.google.com/maps/search/?api=1&query=500+SE+8th+Ave,+Portland,+OR+97214",
         distanceMi: 3.4,
         aviationAdj: false,
+        highlightedDrink: "N/A (Dive Bar)",
+        highlightedNADrink: "Standard Sodas",
+        highlightedFood: "Super Chili Dog",
         hoochReview: {
           rating: 2, verdict: "Side-Eye Sniff",
           sniff: "Jukebox nostalgia and peanuts.",
-          chow: "Chili dogs and chips—classic dive fare.",
+          chow: "Super Chili Dog = messy legend.",
           perks: "Sodas and tallboys for the NA crew.",
           vibe: "Zero pretense; maximum stories.",
           haute: "Fun stop if expectations are set.",
@@ -396,19 +426,22 @@
       },
       {
         name: "Scotch Lodge",
-        vibe: "Vintage‑chic whiskey den with half‑pours for exploration. Leah can apply ‘sampling protocol’ like a pro.",
+        vibe: "Vintage-chic whiskey den with half-pours for exploration—‘sampling protocol’ encouraged.",
         lat: 45.5214, lng: -122.6569,
         instagramUrl: "https://www.instagram.com/scotchlodge/",
         menuUrl: "https://www.scotchlodge.com/menus",
         gmapsUrl: "https://www.google.com/maps/search/?api=1&query=215+SE+9th+Ave+Ste+102,+Portland,+OR+97214",
         distanceMi: 3.2,
         aviationAdj: false,
+        highlightedDrink: "Dealer's Choice (Inferred)",
+        highlightedNADrink: "Fentimans Ginger Beer",
+        highlightedFood: "Dashi Arancini",
         hoochReview: {
           rating: 4, verdict: "Big Tail Wags",
           sniff: "Oak, honey, citrus—balanced and thoughtful.",
-          chow: "Elevated small plates keep pace with pours.",
-          perks: "Zero‑proof options; great guidance from staff.",
-          vibe: "Quiet flex; date‑night friendly.",
+          chow: "Dashi Arancini keeps pace with pours.",
+          perks: "NA pick: Fentimans Ginger Beer.",
+          vibe: "Quiet flex; date-night friendly.",
           haute: "For the ‘let’s try one more’ crowd.",
           why: "excellent pours + calm vibe"
         }
@@ -470,6 +503,18 @@
         </div>`;
     }
 
+    function highlightsSection(bar) {
+      return `
+        <div class="mt-2 text-gray-800">
+          <div class="popup-section-title">Spotlight Sips &amp; Bites</div>
+          <ul class="mt-1 text-sm leading-6">
+            <li><span class="font-semibold">Drink:</span> ${bar.highlightedDrink}</li>
+            <li><span class="font-semibold">NA:</span> ${bar.highlightedNADrink}</li>
+            <li><span class="font-semibold">Food:</span> ${bar.highlightedFood}</li>
+          </ul>
+        </div>`;
+    }
+
     function hoochMiniLine(bar) {
       if (!bar.hoochReview) return '';
       return `
@@ -506,6 +551,7 @@
 
           <p class="mt-1 text-gray-700">${bar.vibe}</p>
 
+          ${highlightsSection(bar)}
           ${hoochSection(bar)}
 
           <div class="mt-2 text-gray-800">
@@ -529,6 +575,11 @@
         </div>
         ${hoochMiniLine(bar)}
         <div class="mt-1 text-xs text-gray-700">${bar.vibe}</div>
+        <div class="mt-1 text-[11.5px] text-gray-800">
+          <span class="font-semibold">Drink:</span> ${bar.highlightedDrink} &nbsp;•&nbsp;
+          <span class="font-semibold">NA:</span> ${bar.highlightedNADrink} &nbsp;•&nbsp;
+          <span class="font-semibold">Food:</span> ${bar.highlightedFood}
+        </div>
         <div class="mt-2 text-xs flex flex-wrap gap-2">
           <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${bar.menuUrl || fallbackMenu(bar.name)}">Menu</a>
           <span class="text-gray-400">·</span>
@@ -562,3 +613,4 @@
   </script>
 </body>
 </html>
+```
