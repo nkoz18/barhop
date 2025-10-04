@@ -26,6 +26,7 @@
     html, body { height: 100%; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: #1f2937; }
     .birthday-header { font-family: 'Pacifico', cursive; color: var(--rose-600); }
+
     /* Map + popups */
     #map { height: 70vh; border-radius: .9rem; border:3px solid var(--rose-200);
            box-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); }
@@ -41,15 +42,19 @@
     .popup-section-title { font-weight: 600; color:#111827; margin-top:.25rem; }
     .custom-marker { text-align:center; color: var(--rose-600); font-size: 1.9rem; line-height:1;
                      text-shadow: 0 0 5px rgba(255,255,255,.7);}
+
     /* List hover */
     .list-item:hover { background:#ffe4e6; transform: translateX(3px); transition: all .15s ease-in-out; }
+
     /* Confetti (kept subtle) */
     .confetti { position: fixed; width:10px; height:10px; opacity:.6; animation: confetti-fall 6s linear infinite;
                 border-radius:50%; top:-20px; z-index:0; }
     @keyframes confetti-fall { 0%{transform:translateY(0) rotate(0)} 100%{transform:translateY(110vh) rotate(720deg)} }
+
     /* Small badge */
     .badge { display:inline-flex; align-items:center; gap:.4rem; padding:.15rem .5rem; border-radius:9999px;
              background:#ffe4e6; color:var(--rose-600); font-weight:600; font-size:.75rem; }
+
     /* Ensure links are clear in popups */
     .popup-links a { text-decoration: underline; }
   </style>
@@ -59,7 +64,7 @@
   <div id="confetti-container" aria-hidden="true"></div>
 
   <!-- Compact top header with circular portrait -->
-  <header class="container mx-auto px-4 sm:px-8 pt-6 pb-2">
+  <header class="container mx-auto px-4 sm:px-8 pt-6 pb-6 mb-4">
     <div class="flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-6">
       <!-- Circular portrait -->
       <div class="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full ring-4 ring-[var(--rose-200)] shadow-lg overflow-hidden shrink-0">
@@ -79,15 +84,22 @@
           <h1 class="birthday-header text-4xl sm:text-5xl">Happy Birthday, Leah!</h1>
           <i class="fa-solid fa-cake-candles text-rose-400 text-3xl"></i>
         </div>
-        <p class="mt-2 text-gray-800 font-semibold">Operation: Legendary Birthday Bar Hop</p>
+
+        <!-- Intro line: removed "Legendary" -->
+        <p class="mt-2 text-gray-800 font-semibold">Operation: Birthday Bar Hop</p>
+
+        <!-- First paragraph with dog joke + emoji -->
         <p class="text-gray-700">
           Celebrate our favorite structural engineer with the Ockley Green Renegades—Nikita, Monica, Mindy &amp; Keith, Linnea &amp; Aaron!
+          We’ll try not to <em>bark</em> up the wrong bar—Hooch, Osho, Luna &amp; Appa expect <strong>pawsitive</strong> updates. 🐾
         </p>
+
         <p class="mt-2 text-sm text-gray-800 font-semibold bg-rose-100 border border-rose-200 rounded-lg px-2 py-1 inline-flex items-center gap-2">
           <i class="fa-solid fa-car-side"></i>
           Game Plan: Walk when we can; Lyft XL for the long hops (6 people).
           <i class="fa-solid fa-person-walking"></i>
         </p>
+
         <!-- Aviation quest note -->
         <div class="mt-3">
           <span class="badge"><i class="fa-solid fa-plane-departure"></i> Aviation-Adjacent Quest</span>
@@ -100,7 +112,7 @@
   </header>
 
   <!-- CONTENT -->
-  <main class="container mx-auto px-4 sm:px-8 py-4 relative z-10">
+  <main class="container mx-auto px-4 sm:px-8 pt-2 pb-6 relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div class="lg:col-span-2 order-1">
         <div id="map" aria-label="Map of bar hop locations"></div>
@@ -147,7 +159,7 @@
         name: "Angel Face",
         vibe: "A fancy spot for our fancy engineer! The perfect place for an 'old lady' like Leah to enjoy a sophisticated, bespoke cocktail that's as structurally sound as her designs.",
         highlights: "<b>Bespoke Cocktails:</b> The main event! <br> <b>For Monica (NA):</b> Describe your favorite flavors and they'll craft a non-alcoholic masterpiece. <br> <b>Food:</b> Oysters & Steak Frites.",
-        aviationAdj: true, // bespoke = can request an Aviation or adjacent
+        aviationAdj: true
       },
       {
         name: "Bible Club",
@@ -189,7 +201,7 @@
         name: "Moloko",
         vibe: "The dark, moody vibe here is perfect for Luna to blend right in... and for Linnea our teacher to finally decompress after a long week. She's definitely earned this!",
         highlights: "<b>Company Party:</b> Lavender-infused gin, lemon, bubbles. <br> <b>For Monica (NA):</b> They offer a variety of intriguing NA cocktails on their menu.",
-        aviationAdj: true // lavender+gin+bubbles = floral lane
+        aviationAdj: true
       },
       {
         name: "Roadside Attraction",
@@ -264,7 +276,7 @@
           <span class="font-semibold">${bar.name}</span>
           ${bar.aviationAdj ? '<span class="badge"><i class="fa-solid fa-plane-departure"></i> Adj.</span>' : ''}
         </div>
-        <div class="mt-1 text-xs text-gray-700 line-clamp-2">${bar.vibe}</div>
+        <div class="mt-1 text-xs text-gray-700">${bar.vibe}</div>
         <div class="mt-1 text-xs text-gray-700"><span class="font-semibold">Highlights:</span> ${bar.highlights}</div>
         <div class="mt-1 text-xs flex flex-wrap gap-2">
           <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${toMenuSearch(bar.name)}">Menu</a>
