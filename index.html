@@ -14,124 +14,195 @@
 
   <!-- Icons + Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;700;900&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Pacifico&display=swap" rel="stylesheet">
 
   <style>
-    :root { --pink-500:#ec4899; --pink-200:#fbcfe8; }
-    body { font-family: 'Inter', sans-serif; background:#fdf2f8; }
-    .birthday-header { font-family: 'Pacifico', cursive; color: var(--pink-500); }
-    .description-font { font-family: 'Caveat', cursive; font-size: 1.15rem; line-height: 1.35; }
-    .list-font { font-family: 'Caveat', cursive; font-weight: 700; font-size: 1.35rem; color: #be185d; }
-    #map { height: 70vh; border-radius: .75rem; border:3px solid var(--pink-200); box-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);}
-    .leaflet-popup-content-wrapper { border-radius:.5rem; border:2px solid var(--pink-500); }
-    .leaflet-popup-content { margin:.75rem; max-width: min(80vw, 320px); }
-    .custom-marker { text-align:center; color: var(--pink-500); font-size: 2rem; line-height:1; text-shadow: 0 0 5px rgba(255,255,255,.7);}
-    .list-item:hover { background:#fce7f3; transform: translateX(4px); transition: all .15s ease-in-out; }
-    .confetti { position: fixed; width:10px; height:10px; opacity:.75; animation: confetti-fall 6s linear infinite; border-radius:50%; top:-20px; z-index:0; }
+    :root {
+      --rose-600: #e11d48; /* better contrast than pink-500 */
+      --rose-500: #f43f5e;
+      --rose-200: #fecdd3;
+      --bg: #fff1f2;       /* soft rose background */
+    }
+    html, body { height: 100%; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: #1f2937; }
+    .birthday-header { font-family: 'Pacifico', cursive; color: var(--rose-600); }
+    /* Map + popups */
+    #map { height: 70vh; border-radius: .9rem; border:3px solid var(--rose-200);
+           box-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); }
+    .leaflet-container a { color: var(--rose-600); }
+    .leaflet-popup-content-wrapper { border-radius:.75rem; border:2px solid var(--rose-600); }
+    .leaflet-popup-content {
+      margin:.85rem;
+      max-width:min(84vw, 340px);
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: .95rem; line-height: 1.45;
+    }
+    .popup-title { font-weight: 800; font-size: 1.05rem; color:#111827; }
+    .popup-section-title { font-weight: 600; color:#111827; margin-top:.25rem; }
+    .custom-marker { text-align:center; color: var(--rose-600); font-size: 1.9rem; line-height:1;
+                     text-shadow: 0 0 5px rgba(255,255,255,.7);}
+    /* List hover */
+    .list-item:hover { background:#ffe4e6; transform: translateX(3px); transition: all .15s ease-in-out; }
+    /* Confetti (kept subtle) */
+    .confetti { position: fixed; width:10px; height:10px; opacity:.6; animation: confetti-fall 6s linear infinite;
+                border-radius:50%; top:-20px; z-index:0; }
     @keyframes confetti-fall { 0%{transform:translateY(0) rotate(0)} 100%{transform:translateY(110vh) rotate(720deg)} }
+    /* Small badge */
+    .badge { display:inline-flex; align-items:center; gap:.4rem; padding:.15rem .5rem; border-radius:9999px;
+             background:#ffe4e6; color:var(--rose-600); font-weight:600; font-size:.75rem; }
+    /* Ensure links are clear in popups */
+    .popup-links a { text-decoration: underline; }
   </style>
 </head>
-<body class="bg-pink-50 text-gray-800">
-
+<body>
   <!-- Confetti -->
   <div id="confetti-container" aria-hidden="true"></div>
 
-  <!-- HERO -->
-  <section class="relative">
-    <!-- Use Google Drive direct-view URL -->
-    <img
-      src="https://drive.google.com/uc?export=view&id=1HNI1YcHuGCSTPKHuAEKkygIWxqa8YLJr"
-      alt="Leah smiling—birthday hero image"
-      class="w-full h-[42vh] sm:h-[50vh] object-cover"
-      loading="eager"
-      referrerpolicy="no-referrer"
-    />
-    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
-    <div class="absolute inset-x-0 bottom-0 px-4 sm:px-8 pb-4">
-      <div class="flex flex-col items-start gap-2">
-        <div class="flex items-center gap-3">
-          <i class="fa-solid fa-cake-candles text-pink-200 text-3xl drop-shadow"></i>
-          <h1 class="birthday-header text-4xl sm:text-5xl drop-shadow">Happy Birthday, Leah!</h1>
+  <!-- Compact top header with circular portrait -->
+  <header class="container mx-auto px-4 sm:px-8 pt-6 pb-2">
+    <div class="flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-6">
+      <!-- Circular portrait -->
+      <div class="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full ring-4 ring-[var(--rose-200)] shadow-lg overflow-hidden shrink-0">
+        <img
+          src="https://drive.usercontent.google.com/download?id=1HNI1YcHuGCSTPKHuAEKkygIWxqa8YLJr"
+          alt="Leah smiling—birthday portrait"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="eager"
+          onerror="this.src='https://picsum.photos/400?blur=3';"
+          referrerpolicy="no-referrer"
+        />
+      </div>
+
+      <div class="text-center sm:text-left">
+        <div class="flex items-center justify-center sm:justify-start gap-3">
+          <i class="fa-solid fa-cake-candles text-rose-400 text-3xl"></i>
+          <h1 class="birthday-header text-4xl sm:text-5xl">Happy Birthday, Leah!</h1>
+          <i class="fa-solid fa-cake-candles text-rose-400 text-3xl"></i>
         </div>
-        <p class="text-pink-50/95 font-semibold">Operation: Legendary Birthday Bar Hop</p>
-        <p class="text-pink-50/95 text-sm sm:text-base max-w-3xl">
-          Celebrating our favorite structural engineer with the Ockley Green Renegades—Nikita, Monica, Mindy &amp; Keith, Linnea &amp; Aaron!
+        <p class="mt-2 text-gray-800 font-semibold">Operation: Legendary Birthday Bar Hop</p>
+        <p class="text-gray-700">
+          Celebrate our favorite structural engineer with the Ockley Green Renegades—Nikita, Monica, Mindy &amp; Keith, Linnea &amp; Aaron!
         </p>
-        <p class="text-pink-100 text-sm bg-pink-600/40 border border-pink-300/60 rounded-lg px-3 py-1 inline-flex items-center gap-2">
+        <p class="mt-2 text-sm text-gray-800 font-semibold bg-rose-100 border border-rose-200 rounded-lg px-2 py-1 inline-flex items-center gap-2">
           <i class="fa-solid fa-car-side"></i>
-          Game Plan: Walk when we can; Lyft XL for long hops (6 people).
+          Game Plan: Walk when we can; Lyft XL for the long hops (6 people).
           <i class="fa-solid fa-person-walking"></i>
         </p>
+        <!-- Aviation quest note -->
+        <div class="mt-3">
+          <span class="badge"><i class="fa-solid fa-plane-departure"></i> Aviation-Adjacent Quest</span>
+          <span class="ml-2 text-sm text-gray-700">
+            Hunting cocktails with gin + maraschino + lemon + floral (violette or elderflower) vibes for Leah.
+          </span>
+        </div>
       </div>
     </div>
-  </section>
+  </header>
 
   <!-- CONTENT -->
-  <main class="container mx-auto px-4 sm:px-8 py-6 relative z-10">
-    <!-- Map + List: single column on mobile, side-by-side on lg+ -->
+  <main class="container mx-auto px-4 sm:px-8 py-4 relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div class="lg:col-span-2 order-1">
         <div id="map" aria-label="Map of bar hop locations"></div>
-        <p class="mt-2 text-xs text-gray-500">Tip: tap a marker or pick a spot from the list.</p>
+        <p class="mt-2 text-xs text-gray-600">Tip: tap a marker or pick a spot from the list.</p>
       </div>
 
       <aside class="order-2">
-        <div class="bg-white/85 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-pink-200">
-          <h2 class="text-2xl font-bold mb-3 border-b-2 border-pink-200 pb-2 text-pink-600">The Hot Spots</h2>
+        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-rose-200 max-h-[70vh] overflow-y-auto">
+          <h2 class="text-2xl font-extrabold mb-3 border-b-2 border-rose-200 pb-2 text-[var(--rose-600)]">The Hot Spots</h2>
           <ul id="bar-list" class="space-y-2"></ul>
+          <div class="mt-4 text-xs text-gray-600">
+            <span class="badge"><i class="fa-solid fa-plane-departure"></i> Aviation-adjacent</span>
+            picks are flagged where applicable.
+          </div>
         </div>
       </aside>
     </div>
   </main>
 
   <script>
-    // Confetti
+    // ---- Confetti (subtle) ----
     (function () {
       const c = document.getElementById('confetti-container');
-      const colors = ['#ec4899', '#f9a8d4', '#fefce8', '#a78bfa'];
-      for (let i = 0; i < 60; i++) {
+      const colors = ['#f43f5e', '#fecdd3', '#fde68a', '#a78bfa'];
+      for (let i = 0; i < 50; i++) {
         const dot = document.createElement('div');
         dot.className = 'confetti';
         dot.style.left = `${Math.random() * 100}vw`;
         dot.style.animationDelay = `${Math.random() * 5}s`;
         dot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        dot.style.transform = `scale(${Math.random() * 0.6 + 0.5})`;
+        dot.style.transform = `scale(${Math.random() * 0.55 + 0.55})`;
         c.appendChild(dot);
       }
     })();
 
-    // Data
+    // ---- Helpers for links (reliable even if sites change) ----
+    const toMaps = (name) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' Portland OR')}`;
+    const toMenuSearch = (name) => `https://www.google.com/search?q=${encodeURIComponent(name + ' Portland menu')}`;
+    const toInstaSearch = (name) => `https://www.google.com/search?q=${encodeURIComponent(name + ' Instagram Portland')}`;
+
+    // ---- Your bars (jokes unchanged) + Aviation flags ----
     const bars = [
-      { name: "Angel Face",
+      {
+        name: "Angel Face",
         vibe: "A fancy spot for our fancy engineer! The perfect place for an 'old lady' like Leah to enjoy a sophisticated, bespoke cocktail that's as structurally sound as her designs.",
-        highlights: "<b>Bespoke Cocktails:</b> The main event! <br> <b>For Monica (NA):</b> Describe your favorite flavors and they'll craft a non-alcoholic masterpiece. <br> <b>Food:</b> Oysters & Steak Frites." },
-      { name: "Bible Club",
+        highlights: "<b>Bespoke Cocktails:</b> The main event! <br> <b>For Monica (NA):</b> Describe your favorite flavors and they'll craft a non-alcoholic masterpiece. <br> <b>Food:</b> Oysters & Steak Frites.",
+        aviationAdj: true, // bespoke = can request an Aviation or adjacent
+      },
+      {
+        name: "Bible Club",
         vibe: "A secret spot for the renegades who know a thing or two about finding a way into the old Ockley Green dog park. A great place for Mindy and Leah to toast to Hooch and Osho's friendship.",
-        highlights: "<b>The Biblical Garden:</b> A floral, bubbly gin drink. <br> <b>For Monica (NA):</b> Their 'Temperance' section features complex NA cocktails like the 'Phony Negroni'." },
-      { name: "Deadshot",
+        highlights: "<b>The Biblical Garden:</b> A floral, bubbly gin drink. <br> <b>For Monica (NA):</b> Their 'Temperance' section features complex NA cocktails like the 'Phony Negroni'.",
+        aviationAdj: true
+      },
+      {
+        name: "Deadshot",
         vibe: "Let's see if Mindy and Keith's expert palates from roasting coffee translate to these wild cocktails! A perfect spot for the adventurous members of the dog park crew.",
-        highlights: "<b>Who Is Jack Nance?:</b> A unique whiskey sour. <br> <b>For Monica (NA):</b> Ask for a 'Temperance' drink; they're known for creative NA options." },
-      { name: "Driftwood Room",
+        highlights: "<b>Who Is Jack Nance?:</b> A unique whiskey sour. <br> <b>For Monica (NA):</b> Ask for a 'Temperance' drink; they're known for creative NA options.",
+        aviationAdj: false
+      },
+      {
+        name: "Driftwood Room",
         vibe: "A classic, dark spot where sports-lover Aaron can probably find a TV, but will be forced to socialize instead. Perfect for the ski crew to plan their next mountain conquest.",
-        highlights: "<b>Springtime in Paris:</b> Elderflower, grapefruit, bubbles. <br> <b>For Monica (NA):</b> They make a great 'French 75-ish' with sparkling cider." },
-      { name: "Expatriate",
+        highlights: "<b>Springtime in Paris:</b> Elderflower, grapefruit, bubbles. <br> <b>For Monica (NA):</b> They make a great 'French 75-ish' with sparkling cider.",
+        aviationAdj: true
+      },
+      {
+        name: "Expatriate",
         vibe: "This place is as effortlessly cool as an all-white Husky in a snowstorm. Perfect vibes for celebrating Leah with legendary nachos to give everyone party-fuel.",
-        highlights: "<b>Night Dreamer:</b> Cognac, elderflower, citrus. <br> <b>For Monica (NA):</b> Try their house-made shrubs and sodas. <br> <b>Food:</b> Expatriate Nachos are a must." },
-      { name: "Function NE",
+        highlights: "<b>Night Dreamer:</b> Cognac, elderflower, citrus. <br> <b>For Monica (NA):</b> Try their house-made shrubs and sodas. <br> <b>Food:</b> Expatriate Nachos are a must.",
+        aviationAdj: true
+      },
+      {
+        name: "Function NE",
         vibe: "For connoisseurs, like a dog appreciating a truly fine squeaky toy. While beer-focused, it's a great stop for the crew to try something new and noteworthy.",
-        highlights: "<b>Rotating Tap List:</b> Always something new. <br> <b>For Monica (NA):</b> Usually has interesting ciders, kombuchas, or specialty sodas on tap." },
-      { name: "Hey Love",
+        highlights: "<b>Rotating Tap List:</b> Always something new. <br> <b>For Monica (NA):</b> Usually has interesting ciders, kombuchas, or specialty sodas on tap.",
+        aviationAdj: false
+      },
+      {
+        name: "Hey Love",
         vibe: "It's a tropical party in here, much like the inside of Leah's mind when she thinks about Hooch. A perfect spot for Nikita to treat the birthday girl to a fun drink!",
-        highlights: "<b>Master of Karate & Friendship:</b> A frosé with rum. <br> <b>For Monica (NA):</b> Extensive NA menu, including the 'Passionfruit No-Groni'." },
-      { name: "Moloko",
+        highlights: "<b>Master of Karate & Friendship:</b> A frosé with rum. <br> <b>For Monica (NA):</b> Extensive NA menu, including the 'Passionfruit No-Groni'.",
+        aviationAdj: false
+      },
+      {
+        name: "Moloko",
         vibe: "The dark, moody vibe here is perfect for Luna to blend right in... and for Linnea our teacher to finally decompress after a long week. She's definitely earned this!",
-        highlights: "<b>Company Party:</b> Lavender-infused gin, lemon, bubbles. <br> <b>For Monica (NA):</b> They offer a variety of intriguing NA cocktails on their menu." },
-      { name: "Roadside Attraction",
+        highlights: "<b>Company Party:</b> Lavender-infused gin, lemon, bubbles. <br> <b>For Monica (NA):</b> They offer a variety of intriguing NA cocktails on their menu.",
+        aviationAdj: true // lavender+gin+bubbles = floral lane
+      },
+      {
+        name: "Roadside Attraction",
         vibe: "This place is so weird and wonderful, even Monica's dog Appa would be impressed. It has as much chaotic history as the Ockley Green dog park before the 'incidents'.",
-        highlights: "<b>Cozy Fire Pits:</b> Great for a group hang. <br> <b>For Monica (NA):</b> Classic sodas and juices in a one-of-a-kind setting." },
-      { name: "Slammer Tavern",
+        highlights: "<b>Cozy Fire Pits:</b> Great for a group hang. <br> <b>For Monica (NA):</b> Classic sodas and juices in a one-of-a-kind setting.",
+        aviationAdj: false
+      },
+      {
+        name: "Slammer Tavern",
         vibe: "The official after-party spot where Aaron can try ordering a round in every language he knows. No-frills, all fun, where Nikita can buy more rounds with the money saved.",
-        highlights: "<b>Strong, Affordable Drinks:</b> The main event. <br> <b>For Monica (NA):</b> A solid spot for a classic soda or juice." }
+        highlights: "<b>Strong, Affordable Drinks:</b> The main event. <br> <b>For Monica (NA):</b> A solid spot for a classic soda or juice.",
+        aviationAdj: false
+      }
     ];
 
     const barCoords = {
@@ -141,7 +212,7 @@
       "Slammer Tavern":[45.5186,-122.6575]
     };
 
-    // Map
+    // ---- Map ----
     const map = L.map('map', { zoomControl: true }).setView([45.53, -122.65], 12.4);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 20
@@ -156,30 +227,53 @@
 
     const group = L.featureGroup();
 
+    const makePopupLinks = (name) => `
+      <div class="popup-links flex flex-wrap items-center gap-3 mt-2 text-sm">
+        <a target="_blank" rel="noopener" href="${toMenuSearch(name)}">Menu</a>
+        <span class="text-gray-400" aria-hidden="true">·</span>
+        <a target="_blank" rel="noopener" href="${toInstaSearch(name)}">Instagram</a>
+        <span class="text-gray-400" aria-hidden="true">·</span>
+        <a target="_blank" rel="noopener" href="${toMaps(name)}">Google Maps</a>
+      </div>`;
+
     bars.forEach(bar => {
       const coords = barCoords[bar.name];
       const marker = L.marker(coords, { icon: cocktailIcon }).addTo(map);
 
       const popup = `
-        <div class="space-y-2">
-          <h3 class="text-lg font-bold text-gray-900">${bar.name}</h3>
-          <p class="text-gray-700 description-font">"${bar.vibe}"</p>
-          <div class="text-sm text-gray-700">
-            <h4 class="font-semibold text-gray-800">Highlights:</h4>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="popup-title">${bar.name}</h3>
+            ${bar.aviationAdj ? '<span class="badge"><i class="fa-solid fa-plane-departure"></i> Aviation-adjacent</span>' : ''}
+          </div>
+          <p class="mt-1 text-gray-700">"${bar.vibe}"</p>
+          <div class="mt-2 text-gray-800">
+            <div class="popup-section-title">Highlights:</div>
             <p>${bar.highlights}</p>
           </div>
-          <a class="inline-flex items-center gap-2 mt-1 text-pink-600 underline"
-             target="_blank" rel="noopener"
-             href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(bar.name + ' Portland OR')}">
-            Open in Google Maps <i class="fa-solid fa-up-right-from-square text-xs"></i>
-          </a>
+          ${makePopupLinks(bar.name)}
         </div>`;
       marker.bindPopup(popup, { closeButton: true });
       group.addLayer(marker);
 
+      // Sidebar list item with quick links
       const li = document.createElement('li');
-      li.className = 'p-2 rounded-lg cursor-pointer list-item list-font';
-      li.textContent = bar.name;
+      li.className = 'p-2 rounded-lg cursor-pointer list-item';
+      li.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="font-semibold">${bar.name}</span>
+          ${bar.aviationAdj ? '<span class="badge"><i class="fa-solid fa-plane-departure"></i> Adj.</span>' : ''}
+        </div>
+        <div class="mt-1 text-xs text-gray-700 line-clamp-2">${bar.vibe}</div>
+        <div class="mt-1 text-xs text-gray-700"><span class="font-semibold">Highlights:</span> ${bar.highlights}</div>
+        <div class="mt-1 text-xs flex flex-wrap gap-2">
+          <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${toMenuSearch(bar.name)}">Menu</a>
+          <span class="text-gray-400">·</span>
+          <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${toInstaSearch(bar.name)}">Instagram</a>
+          <span class="text-gray-400">·</span>
+          <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${toMaps(bar.name)}">Maps</a>
+        </div>
+      `;
       li.setAttribute('role', 'button');
       li.setAttribute('tabindex', '0');
       li.addEventListener('click', () => { map.flyTo(coords, 15, { duration: .6 }); marker.openPopup(); });
