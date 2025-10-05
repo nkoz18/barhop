@@ -1,47 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--
-  =========================  HOOCH’S HAUTE-TAKES — GUIDE (not rendered)  =========================
-  Section name
-  Hooch’s Haute-Takes
-
-  Image filename
-  hooch_critic.png
-
-  Paw scale (use paws as stars)
-  5 🐾🐾🐾🐾🐾 — Full-Body Zoomies: White-glove for the white floof—instant woo-woo.
-  4 🐾🐾🐾🐾 — Big Tail Wags: Sniff-approved; one tiny grr from perfection.
-  3 🐾🐾🐾 — Polite Sit: Good dog, good grub; not a destination snout.
-  2 🐾🐾 — Side-Eye Sniff: Treats try; vibe shy.
-  1 🐾 — Low Growl: Would not boop again.
-  0 — Cone of Shame: Only if you forgot your nose at home.
-
-  Review section headers
-  Sniff Test · Chow Down · Pup Perks · Pack Vibe · Haute-Take · Tail Tally
-
-  Reusable voice lines / lexicon
-  haute hound • fine-dining floof • snow-sommelier
-  snoot-vetted • boop-worthy • sniff-approved • tail-verified
-  zoomie-inducing • big floof energy • good-boy gastronomy
-  patio paw-lor • water bowl sommelier • chef’s chews
-  snoot-to-table • chonk-worthy portions • cold-weather cred
-
-  Handy sentence starters
-  “Perimeter patrol complete—patio is boop-worthy.”
-  “Water arrived pre-chilled; the snow-sommelier approves.”
-  “Fries pass the no-droop test; burger earns a two-paw lift.”
-  “Staff delivered unsolicited scritches—noted.”
-  “Noise is busy-brunch, not leaf-blower—dignified floof zone.”
-  “Aromas do synchronized zoomies: buttery grill, basil, faint fryer fizz.”
-
-  Closers
-  “Haute-Take: woo-woo worth the walk.”
-  “Tail Tally: X/5 🐾 — why: one short clause.”
-  “Snoot says: return with the pack.”
-  ===============================================================================================
-  -->
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Leah's Birthday Bar Hop!</title>
@@ -59,66 +18,56 @@
 
   <style>
     :root {
-      --rose-700:#be123c;
-      --rose-600:#e11d48; /* better contrast than pink-500 */
-      --rose-500:#f43f5e;
-      --rose-300:#fda4af;
-      --rose-200:#fecdd3;
-      --bg:#fff1f2;       /* soft rose background */
+      --rose-600: #e11d48; /* contrasty rose */
+      --rose-500: #f43f5e;
+      --rose-200: #fecdd3;
+      --bg: #fff1f2;       /* soft rose background */
     }
-
-    html, body { height:100%; scroll-behavior: smooth; }
-    body { font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:#1f2937; }
-    .birthday-header { font-family:'Pacifico', cursive; color:var(--rose-600); }
+    html, body { height: 100%; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: #1f2937; }
+    .birthday-header { font-family: 'Pacifico', cursive; color: var(--rose-600); }
 
     /* Map + popups */
-    #map {
-      height: clamp(360px, 62vh, 640px);
-      border-radius: .9rem; border:3px solid var(--rose-200);
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1);
-      background:#fff;
-    }
-    .leaflet-container a { color:var(--rose-600); }
+    #map { height: 70vh; border-radius: .9rem; border:3px solid var(--rose-200);
+           box-shadow: 0 4px 6px -1px rgb(0 0 0 / .1), 0 2px 4px -2px rgb(0 0 0 / .1); }
+    .leaflet-container a { color: var(--rose-600); }
     .leaflet-popup-content-wrapper { border-radius:.75rem; border:2px solid var(--rose-600); }
     .leaflet-popup-content {
       margin:.85rem;
-      max-width:min(86vw, 392px);
-      font-size:.98rem; line-height:1.5;
-      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      max-width:min(84vw, 360px);
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: .95rem; line-height: 1.45;
     }
-    .popup-title { font-weight:800; font-size:1.12rem; color:#111827; }
-    .popup-section-title { font-weight:700; color:#111827; margin-top:.35rem; }
-    .custom-marker {
-      text-align:center; color:var(--rose-600); font-size:1.9rem; line-height:1;
-      text-shadow:0 0 5px rgba(255,255,255,.7);
+    .popup-title { font-weight: 800; font-size: 1.05rem; color:#111827; }
+    .popup-section-title { font-weight: 600; color:#111827; margin-top:.25rem; }
+    .custom-marker { text-align:center; color: var(--rose-600); font-size: 1.9rem; line-height:1;
+                     text-shadow: 0 0 5px rgba(255,255,255,.7);}
+
+    /* On small screens, hide Leaflet popups entirely (we use a separate details card). */
+    @media (max-width: 1023px) {
+      .leaflet-popup { display: none !important; }
     }
 
-    /* List items */
-    .list-item { border:1px solid rgba(244,63,94,.15); }
-    .list-item:hover { background:#ffe4e6; transform:translateX(3px); transition:all .15s ease-in-out; }
-    .list-item[aria-current="true"] { background:#ffe4e6; border-color:var(--rose-500); box-shadow:0 0 0 2px rgba(244,63,94,.35) inset; }
+    /* List hover */
+    .list-item:hover { background:#ffe4e6; transform: translateX(3px); transition: all .15s ease-in-out; }
 
     /* Confetti (subtle) */
-    .confetti { position:fixed; width:10px; height:10px; opacity:.6; animation:confetti-fall 6s linear infinite;
-                border-radius:50%; top:-20px; z-index:0; pointer-events:none; }
+    .confetti { position: fixed; width:10px; height:10px; opacity:.6; animation: confetti-fall 6s linear infinite;
+                border-radius:50%; top:-20px; z-index:0; }
     @keyframes confetti-fall { 0%{transform:translateY(0) rotate(0)} 100%{transform:translateY(110vh) rotate(720deg)} }
-    @media (prefers-reduced-motion: reduce) { .confetti { animation:none !important; display:none !important; } }
 
-    /* Badges + links */
-    .badge { display:inline-flex; align-items:center; gap:.45rem; padding:.18rem .55rem; border-radius:9999px;
-             background:#ffe4e6; color:var(--rose-700); font-weight:700; font-size:.78rem; }
-    .popup-links a { text-decoration:underline; }
+    /* Small badge */
+    .badge { display:inline-flex; align-items:center; gap:.4rem; padding:.15rem .5rem; border-radius:9999px;
+             background:#ffe4e6; color:var(--rose-600); font-weight:600; font-size:.75rem; }
+    .popup-links a, .linklike { text-decoration: underline; color: var(--rose-600); }
 
-    /* Hooch critic visuals — icon & paws much bigger, no circular mask */
-    .hooch-img { width: 92px; height:auto; display:block; }         /* larger and not rounded */
-    .paws { font-size:2.8rem; line-height:1; }                      /* ~2x+ bigger */
-    .paws--mini { font-size:1.9rem; line-height:1; }                /* bigger in sidebar too */
+    /* Hooch critic bits */
+    .hooch-row { display:flex; align-items:center; gap:.5rem; margin-top:.35rem; }
+    .hooch-stamp { width:28px; height:28px; border-radius:9999px; border:2px solid #fecdd3; box-shadow:0 1px 2px rgba(0,0,0,.08); }
+    .hooch-verdict { font-weight:600; color:#e11d48; font-size:.85rem; }
 
-    /* Layout polish: sticky sidebar on desktop, no nested scrollbars */
-    .aside-card { background:rgba(255,255,255,.9); backdrop-filter:blur(6px); }
-    @media (min-width:1024px) {
-      .aside-wrap { position: sticky; top: 1rem; }
-    }
+    /* Details card (mobile) */
+    #mobile-detail { border:2px solid var(--rose-200); }
   </style>
 </head>
 <body>
@@ -147,51 +96,70 @@
           <i class="fa-solid fa-cake-candles text-rose-400 text-3xl"></i>
         </div>
 
+        <!-- Intro line (no "Legendary") with pun + dog line -->
         <p class="mt-2 text-gray-800 font-semibold">Operation: Birthday Bar Hop</p>
-
-        <!-- ✨ Rewritten intro paragraph (funnier, punnier, and all floofs loved equally) -->
         <p class="text-gray-700">
-          We’re raising beams <em>and</em> glasses for our favorite structural engineer
-          (Michigan: built to code) with the Ockley Green renegades—Nikita, Monica, Mindy &amp; Keith, Linnea &amp; Aaron!
-          The home crowd of furry friends—Hooch, Osho, Luna, and Appa—are co-captains of the cuddle league, all equally boop-worthy. 🐾
+          Celebrate our favorite structural engineer with the Ockley Green Renegades—Nikita, Monica, Mindy &amp; Keith, Linnea &amp; Aaron!
+          Why don’t you take a <strong>Michigander</strong> at our suggestions? We’ll keep it <em>structurally sound</em> and very sippable.
+          Our boopable friends (Hooch, Osho, Luna &amp; Appa) expect <strong>pawsitive</strong> updates. 🐾
         </p>
 
-        <!-- Plan notes (start + suggestions) -->
-        <div class="mt-3 flex flex-wrap gap-2">
-          <span class="badge"><i class="fa-solid fa-location-dot"></i> Tentative start: <strong>Angel Face</strong> @ <strong>7:00 pm</strong> (flexible)</span>
-          <span class="badge"><i class="fa-regular fa-lightbulb"></i> These are suggestions—please throw out options!</span>
-        </div>
-
-        <!-- Aviation quest note -->
-        <div class="mt-3">
-          <span class="badge"><i class="fa-solid fa-plane-departure"></i> Aviation-Adjacent Quest</span>
-          <span class="ml-2 text-sm text-gray-700">
-            Hunting gin + floral + lemon vibes (violette/elderflower) for Leah’s toast—NA-friendly ideas welcome.
-          </span>
-        </div>
+        <p class="mt-2 text-sm text-gray-800 font-semibold bg-rose-100 border border-rose-200 rounded-lg px-2 py-1 inline-flex items-center gap-2">
+          <i class="fa-solid fa-car-side"></i>
+          Game Plan: Walk when we can; Lyft XL for the long hops (6 people).
+          <i class="fa-solid fa-person-walking"></i>
+        </p>
       </div>
     </div>
+
+    <!-- Aviation-Adjacent Quest (clarified) -->
+    <section class="mt-4 rounded-lg border border-rose-200 bg-white/90 p-3">
+      <span class="badge"><i class="fa-solid fa-plane-departure"></i> Aviation-Adjacent Quest</span>
+      <p class="mt-2 text-sm text-gray-800">
+        Leah’s favorite cocktail is the <strong>Aviation</strong>—not to be confused with the Portland gin brand (yes, the Ryan Reynolds one).
+        The pre-Prohibition classic mixes <strong>gin, maraschino liqueur, crème de violette</strong> (the purple stuff), and <strong>lemon</strong>.
+        Many modern riffs swap in <strong>elderflower</strong> for violette but keep the floral + citrus lift we’re hunting tonight.
+      </p>
+    </section>
   </header>
 
+  <!-- MOBILE DETAILS CARD (shown on phones above the map; hidden on desktop) -->
+  <section id="mobile-detail" class="container mx-auto px-4 sm:px-8 mb-3 hidden lg:hidden rounded-xl bg-white/95 p-4">
+    <!-- Filled dynamically when a marker/list item is tapped on mobile -->
+    <div class="text-sm text-gray-600">Tap a pin or a spot below to see details here.</div>
+  </section>
+
   <!-- CONTENT -->
-  <main class="container mx-auto px-4 sm:px-8 pt-2 pb-10 relative z-10">
+  <main class="container mx-auto px-4 sm:px-8 pt-2 pb-6 relative z-10">
+    <!-- Map first, list below on mobile; side-by-side on desktop -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div class="lg:col-span-2 order-1">
         <div id="map" aria-label="Map of bar hop locations"></div>
         <p class="mt-2 text-xs text-gray-600">Tip: tap a marker or pick a spot from the list.</p>
       </div>
 
-      <aside class="order-2 aside-wrap">
-        <div class="aside-card p-4 rounded-xl shadow-lg border border-rose-200">
+      <!-- Desktop sidebar (list) -->
+      <aside class="order-2 hidden lg:block">
+        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-rose-200 max-h-[70vh] overflow-y-auto">
           <h2 class="text-2xl font-extrabold mb-3 border-b-2 border-rose-200 pb-2 text-[var(--rose-600)]">The Hot Spots</h2>
-          <ul id="bar-list" class="space-y-2"></ul>
+          <ul id="bar-list-desktop" class="space-y-2"></ul>
           <div class="mt-4 text-xs text-gray-600">
             <span class="badge"><i class="fa-solid fa-plane-departure"></i> Aviation-adjacent</span>
-            picks are flagged where applicable. Links open in new tabs.
+            picks are flagged where applicable.
           </div>
         </div>
       </aside>
     </div>
+
+    <!-- Mobile list (full list below the map) -->
+    <section class="mt-6 lg:hidden">
+      <h2 class="text-xl font-extrabold mb-2 text-[var(--rose-600)]">The Hot Spots</h2>
+      <ul id="bar-list-mobile" class="space-y-2"></ul>
+      <div class="mt-3 text-xs text-gray-600">
+        <span class="badge"><i class="fa-solid fa-plane-departure"></i> Aviation-adjacent</span>
+        picks are flagged where applicable.
+      </div>
+    </section>
   </main>
 
   <script>
@@ -210,242 +178,83 @@
       }
     })();
 
-    // ---- Link helpers (prefer canonical; fall back to searches) ----
-    const fallbackMenu = (name) => `https://www.google.com/search?q=${encodeURIComponent(name + ' menu Portland')}`;
-    const fallbackInsta = (name) => `https://www.google.com/search?q=${encodeURIComponent(name + ' Instagram Portland')}`;
+    // ---- Helpers ----
+    const mq = window.matchMedia('(max-width: 1023px)');
+    let isMobile = mq.matches;
+    mq.addEventListener?.('change', e => { isMobile = e.matches; });
 
-    // ---- Accessible paws renderer (big paws) ----
-    function renderPaws(rating = 0, mini = false) {
-      rating = Math.max(0, Math.min(5, rating));
-      const cls = mini ? 'paws paws--mini' : 'paws';
-      const full = '🐾'.repeat(rating);
-      const empty = '🐾'.repeat(5 - rating).split('').map(p => `<span class="opacity-30">${p}</span>`).join('');
-      return `<span class="${cls}" aria-label="${rating} out of 5 paws"><span aria-hidden="true">${full}${empty}</span></span>`;
-    }
+    const toMaps       = (name) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' Portland OR')}`;
+    const toMenuSearch = (name) => `https://www.google.com/search?q=${encodeURIComponent(name + ' Portland menu')}`;
+    const toInstaSearch= (name) => `https://www.google.com/search?q=${encodeURIComponent(name + ' Instagram Portland')}`;
 
-    // ---- Bars (updated with explicit CSV highlights for drinks/NA/food) ----
+    // Paws display: show ONLY filled paws (no empty placeholders).
+    const paws = (n=0) => '🐾'.repeat(Math.max(0, Math.min(5, n)));
+
+    // ---- Data (your jokes intact) + optional Hooch reviews ----
     const bars = [
-      {
-        name: "Angel Face",
-        vibe: "European-style, intimate, alluring—describe your flavors and they’ll engineer it. Perfect place to ‘spec and sip’.",
-        lat: 45.5232, lng: -122.6371,
-        instagramUrl: "https://www.instagram.com/angelfaceportland/",
-        menuUrl: "https://www.angelfaceportland.com/pages/menu",
-        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=14+NE+28th+Ave,+Portland,+OR+97232",
-        distanceMi: 3.4,
+      { name: "Angel Face",
+        vibe: "A fancy spot for our fancy engineer! The perfect place for an 'old lady' like Leah to enjoy a sophisticated, bespoke cocktail that's as structurally sound as her designs.",
+        highlights: "<b>Bespoke Cocktails:</b> The main event! <br> <b>For Monica (NA):</b> Describe your favorite flavors and they'll craft a non-alcoholic masterpiece. <br> <b>Food:</b> Oysters & Steak Frites.",
         aviationAdj: true,
-        highlightedDrink: "Dealer's Choice (Bespoke)",
-        highlightedNADrink: "Dealer's Choice (Custom)",
-        highlightedFood: "Steak Tartare with Oysters",
-        hoochReview: {
-          rating: 5, verdict: "Full-Body Zoomies",
-          sniff: "Juniper, floral whispers, bright citrus—clean as fresh snow.",
-          chow: "Steak tartare plays wing-pup to oysters—elegant and chonk-worthy.",
-          perks: "NA bespoke drinks on request; water arrives pre-chilled.",
-          vibe: "Hand-painted room; quiet conversations.",
-          haute: "Dealer’s choice here really means choice.",
-          why: "bespoke magic + cozy seats"
-        }
+        hoochReview: { rating: 4, verdict: "Big Tail Wags", blurb: "Floral lane on request; cozy den energy." }
       },
-      {
-        name: "Deadshot",
-        vibe: "Avant-garde cocktail lab—where flavor science meets fun. Great for a group ‘sip-posium’.",
-        lat: 45.5074, lng: -122.6548,
-        instagramUrl: "https://www.instagram.com/deadshotpdx/",
-        menuUrl: "https://www.deadshotpdx.com/menu",
-        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=2133+SE+11th+Ave,+Portland,+OR+97214",
-        distanceMi: 4.2,
-        aviationAdj: false,
-        highlightedDrink: "Blood Orange Gimlet",
-        highlightedNADrink: "Tropic Noir",
-        highlightedFood: "French Onion Brie Burger",
-        hoochReview: {
-          rating: 3, verdict: "Polite Sit",
-          sniff: "Bitters, citrus, and a little mad-scientist energy.",
-          chow: "French Onion Brie Burger = burger-and-beakers bliss.",
-          perks: "Zero-proof riffs like Tropic Noir.",
-          vibe: "Cocktail nerd HQ; Aaron can order in multiple languages.",
-          haute: "Bring curiosity; leave dogma.",
-          why: "inventive but niche"
-        }
-      },
-      {
-        name: "Driftwood Room",
-        vibe: "1950s hotel lounge—moody and glamorous; perfect for plotting winter-sports shenanigans.",
-        lat: 45.5208, lng: -122.6878,
-        instagramUrl: "https://www.instagram.com/hotel_deluxe/",
-        menuUrl: "https://www.hoteldeluxe.com/dining/driftwood-room/driftwood-menu/",
-        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=729+SW+15th+Ave,+Portland,+OR+97205",
-        distanceMi: 3.3,
+      { name: "Bible Club",
+        vibe: "A secret spot for the renegades who know a thing or two about finding a way into the old Ockley Green dog park. A great place for Mindy and Leah to toast to Hooch and Osho's friendship.",
+        highlights: "<b>The Biblical Garden:</b> A floral, bubbly gin drink. <br> <b>For Monica (NA):</b> Their 'Temperance' section features complex NA cocktails like the 'Phony Negroni'.",
         aviationAdj: true,
-        highlightedDrink: "Marigolds & Daffodils",
-        highlightedNADrink: "Calypso's Song",
-        highlightedFood: "Driftwood Burger (Wagyu)",
-        hoochReview: {
-          rating: 4, verdict: "Big Tail Wags",
-          sniff: "Grapefruit and elderflower—bright and spritzy.",
-          chow: "Wagyu Driftwood Burger—classic, plush, and well-structured.",
-          perks: "Thoughtful NA list (try Calypso’s Song).",
-          vibe: "Dim, plush, relaxed.",
-          haute: "Old-Hollywood vibe without the drama.",
-          why: "floral fizz + comfy booths"
-        }
+        hoochReview: { rating: 4, verdict: "Big Tail Wags", blurb: "Speakeasy smells pass the snoot test." }
       },
-      {
-        name: "Expatriate",
-        vibe: "Atmospheric with balanced cocktails and craveable snacks; playlist begs for one more round.",
-        lat: 45.5624, lng: -122.6346,
-        instagramUrl: "https://www.instagram.com/expatriatepdx/",
-        menuUrl: "http://expatriatepdx.com/cocktails",
-        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=5424+NE+30th+Avenue,+Portland,+OR+97211",
-        distanceMi: 2.2,
+      { name: "Deadshot",
+        vibe: "Let's see if Mindy and Keith's expert palates from roasting coffee translate to these wild cocktails! A perfect spot for the adventurous members of the dog park crew.",
+        highlights: "<b>Who Is Jack Nance?:</b> A unique whiskey sour. <br> <b>For Monica (NA):</b> Ask for a 'Temperance' drink; they're known for creative NA options.",
+        aviationAdj: false
+      },
+      { name: "Driftwood Room",
+        vibe: "A classic, dark spot where sports-lover Aaron can probably find a TV, but will be forced to socialize instead. Perfect for the ski crew to plan their next mountain conquest.",
+        highlights: "<b>Springtime in Paris:</b> Elderflower, grapefruit, bubbles. <br> <b>For Monica (NA):</b> They make a great 'French 75-ish' with sparkling cider.",
         aviationAdj: true,
-        highlightedDrink: "Starling",
-        highlightedNADrink: "Dealer's Choice (Custom)",
-        highlightedFood: "Expatriate Nacho",
-        hoochReview: {
-          rating: 5, verdict: "Full-Body Zoomies",
-          sniff: "Citrus and spice with just-right balance.",
-          chow: "Expatriate Nacho = power snack for the pack.",
-          perks: "House shrubs/sodas or NA dealer’s choice.",
-          vibe: "Dim, lively, playlist on point.",
-          haute: "High hit rate on both food and drinks.",
-          why: "power snacks + floral notes"
-        }
+        hoochReview: { rating: 5, verdict: "Full-Body Zoomies", blurb: "Bubbly + floral = instant woo-woo." }
       },
-      {
-        name: "Function NE",
-        vibe: "Rotating brewery pop-ups—perfect for sampler flights and casual catch-ups.",
-        lat: 45.5590, lng: -122.6448,
-        instagramUrl: "https://www.instagram.com/functionpdx/",
-        menuUrl: "https://untappd.com/v/function-ne/12485099",
-        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=2006+NE+Alberta+St,+Portland,+OR+97211",
-        distanceMi: 1.7,
-        aviationAdj: false,
-        highlightedDrink: "N/A (Beer-focused)",
-        highlightedNADrink: "Standard Sodas",
-        highlightedFood: "N/A (Outside food welcome)",
-        hoochReview: {
-          rating: 3, verdict: "Polite Sit",
-          sniff: "Fresh hops; occasional cider cameo.",
-          chow: "Outside food welcome—snack strategy is yours.",
-          perks: "Usually cider/kombucha/NA cans or sodas.",
-          vibe: "Alberta energy; easy to mingle.",
-          haute: "Great for beer explorers.",
-          why: "rotating taps + options"
-        }
-      },
-      {
-        name: "Hey Love",
-        vibe: "Plant-filled ‘indoor jungle’ with tropical vibes and fun slushies—a mini vacation downtown.",
-        lat: 45.5228, lng: -122.6562,
-        instagramUrl: "https://www.instagram.com/heylovepdx/",
-        menuUrl: "https://www.heylovepdx.com/dinner",
-        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=920+E+Burnside+St,+Portland,+OR+97214",
-        distanceMi: 3.2,
-        aviationAdj: false,
-        highlightedDrink: "Clover Club G & T",
-        highlightedNADrink: "Rose City Swizzle",
-        highlightedFood: "JOJOS! (Crispy Fried Potato Wedges)",
-        hoochReview: {
-          rating: 3, verdict: "Polite Sit",
-          sniff: "Fruit, herbs, sunshine-adjacent.",
-          chow: "JOJOS!—peak wedge-funded joy.",
-          perks: "Robust NA list—start with Rose City Swizzle.",
-          vibe: "Colorful, lively, very ‘Portland’.",
-          haute: "Mood booster; easy crowd-pleaser.",
-          why: "playful menu; sweet-leaning"
-        }
-      },
-      {
-        name: "Moloko",
-        vibe: "Coral-reef aquariums meet cozy modern nook—neon-tinted decompression zone.",
-        lat: 45.5518, lng: -122.6763,
-        instagramUrl: "https://www.instagram.com/molokopdx/",
-        menuUrl: "https://www.molokopdx.com/menu-page",
-        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=3967+N+Mississippi+Ave,+Portland,+OR+97227",
-        distanceMi: 1.1,
+      { name: "Expatriate",
+        vibe: "This place is as effortlessly cool as an all-white Husky in a snowstorm. Perfect vibes for celebrating Leah with legendary nachos to give everyone party-fuel.",
+        highlights: "<b>Night Dreamer:</b> Cognac, elderflower, citrus. <br> <b>For Monica (NA):</b> Try their house-made shrubs and sodas. <br> <b>Food:</b> Expatriate Nachos are a must.",
         aviationAdj: true,
-        highlightedDrink: "Company Party",
-        highlightedNADrink: "Madame Shirley",
-        highlightedFood: "Margherita Pizza",
-        hoochReview: {
-          rating: 4, verdict: "Big Tail Wags",
-          sniff: "Lavender and lemon with bubbles.",
-          chow: "Margherita Pizza for shared slices and smiles.",
-          perks: "NA cocktails like the Madame Shirley.",
-          vibe: "Purple glow; relaxed patio when open.",
-          haute: "Comfy nook with personality.",
-          why: "floral spritz + hideaway"
-        }
+        hoochReview: { rating: 5, verdict: "Full-Body Zoomies", blurb: "Elderflower lift; chonk-worthy nachos." }
       },
-      {
-        name: "Roadside Attraction",
-        vibe: "Quirky, cash-only time capsule with a great fire-pit patio—maximum ‘keep Portland weird’.",
-        lat: 45.5160, lng: -122.6535,
-        instagramUrl: "https://www.instagram.com/roadsideattractionpdx/",
-        menuUrl: "http://places.singleplatform.com/roadside-attraction/menu",
-        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=1000+SE+12th+Ave,+Portland,+OR+97214",
-        distanceMi: 3.6,
-        aviationAdj: false,
-        highlightedDrink: "N/A (Dive Bar)",
-        highlightedNADrink: "Standard Sodas",
-        highlightedFood: "French Dip Sandwich",
-        hoochReview: {
-          rating: 3, verdict: "Polite Sit",
-          sniff: "Campfire, citrus, a little fryer sizzle.",
-          chow: "French dip and friends—simple, satisfying.",
-          perks: "Sodas & low-key sips for NA.",
-          vibe: "Eclectic patio; story-fuel for days.",
-          haute: "Bring cash and a sense of humor.",
-          why: "fire pits + quirks"
-        }
+      { name: "Function NE",
+        vibe: "For connoisseurs, like a dog appreciating a truly fine squeaky toy. While beer-focused, it's a great stop for the crew to try something new and noteworthy.",
+        highlights: "<b>Rotating Tap List:</b> Always something new. <br> <b>For Monica (NA):</b> Usually has interesting ciders, kombuchas, or specialty sodas on tap.",
+        aviationAdj: false
       },
-      {
-        name: "Slammer Tavern",
-        vibe: "Old-school dive with strong pours, string lights, and a friendly crowd—wallet-friendly after-party.",
-        lat: 45.5191, lng: -122.6574,
-        instagramUrl: "https://www.instagram.com/slammertavern/",
-        menuUrl: "http://places.singleplatform.com/slammers-16/menu",
-        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=500+SE+8th+Ave,+Portland,+OR+97214",
-        distanceMi: 3.4,
-        aviationAdj: false,
-        highlightedDrink: "N/A (Dive Bar)",
-        highlightedNADrink: "Standard Sodas",
-        highlightedFood: "Super Chili Dog",
-        hoochReview: {
-          rating: 2, verdict: "Side-Eye Sniff",
-          sniff: "Jukebox nostalgia and peanuts.",
-          chow: "Super Chili Dog = messy legend.",
-          perks: "Sodas and tallboys for the NA crew.",
-          vibe: "Zero pretense; maximum stories.",
-          haute: "Fun stop if expectations are set.",
-          why: "cheap & cheerful; limited NA"
-        }
+      { name: "Hey Love",
+        vibe: "It's a tropical party in here, much like the inside of Leah's mind when she thinks about Hooch. A perfect spot for Nikita to treat the birthday girl to a fun drink!",
+        highlights: "<b>Master of Karate & Friendship:</b> A frosé with rum. <br> <b>For Monica (NA):</b> Extensive NA menu, including the 'Passionfruit No-Groni'.",
+        aviationAdj: false
       },
-      {
-        name: "Scotch Lodge",
-        vibe: "Vintage-chic whiskey den with half-pours for exploration—‘sampling protocol’ encouraged.",
-        lat: 45.5214, lng: -122.6569,
-        instagramUrl: "https://www.instagram.com/scotchlodge/",
-        menuUrl: "https://www.scotchlodge.com/menus",
-        gmapsUrl: "https://www.google.com/maps/search/?api=1&query=215+SE+9th+Ave+Ste+102,+Portland,+OR+97214",
-        distanceMi: 3.2,
-        aviationAdj: false,
-        highlightedDrink: "Dealer's Choice (Inferred)",
-        highlightedNADrink: "Fentimans Ginger Beer",
-        highlightedFood: "Dashi Arancini",
-        hoochReview: {
-          rating: 4, verdict: "Big Tail Wags",
-          sniff: "Oak, honey, citrus—balanced and thoughtful.",
-          chow: "Dashi Arancini keeps pace with pours.",
-          perks: "NA pick: Fentimans Ginger Beer.",
-          vibe: "Quiet flex; date-night friendly.",
-          haute: "For the ‘let’s try one more’ crowd.",
-          why: "excellent pours + calm vibe"
-        }
+      { name: "Moloko",
+        vibe: "The dark, moody vibe here is perfect for Luna to blend right in... and for Linnea our teacher to finally decompress after a long week. She's definitely earned this!",
+        highlights: "<b>Company Party:</b> Lavender-infused gin, lemon, bubbles. <br> <b>For Monica (NA):</b> They offer a variety of intriguing NA cocktails on their menu.",
+        aviationAdj: true,
+        hoochReview: { rating: 4, verdict: "Big Tail Wags", blurb: "Lavender nose; dignified floof zone." }
+      },
+      { name: "Roadside Attraction",
+        vibe: "This place is so weird and wonderful, even Monica's dog Appa would be impressed. It has as much chaotic history as the Ockley Green dog park before the 'incidents'.",
+        highlights: "<b>Cozy Fire Pits:</b> Great for a group hang. <br> <b>For Monica (NA):</b> Classic sodas and juices in a one-of-a-kind setting.",
+        aviationAdj: false
+      },
+      { name: "Slammer Tavern",
+        vibe: "The official after-party spot where Aaron can try ordering a round in every language he knows. No-frills, all fun, where Nikita can buy more rounds with the money saved.",
+        highlights: "<b>Strong, Affordable Drinks:</b> The main event. <br> <b>For Monica (NA):</b> A solid spot for a classic soda or juice.",
+        aviationAdj: false
       }
     ];
+
+    const barCoords = {
+      "Angel Face":[45.5244,-122.6395],"Bible Club":[45.4741,-122.6496],"Deadshot":[45.5085,-122.6548],
+      "Driftwood Room":[45.5199,-122.6872],"Expatriate":[45.5619,-122.6358],"Function NE":[45.5592,-122.6450],
+      "Hey Love":[45.5229,-122.6565],"Moloko":[45.5518,-122.6766],"Roadside Attraction":[45.5152,-122.6540],
+      "Slammer Tavern":[45.5186,-122.6575]
+    };
 
     // ---- Map ----
     const map = L.map('map', { zoomControl: true }).setView([45.53, -122.65], 12.4);
@@ -453,160 +262,151 @@
       attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 20
     }).addTo(map);
 
-    const barList = document.getElementById('bar-list');
-    const group = L.featureGroup();
-    const listItemByName = new Map();
-    let activeName = null;
+    // UI targets
+    const listDesktop = document.getElementById('bar-list-desktop');
+    const listMobile  = document.getElementById('bar-list-mobile');
+    const detailCard  = document.getElementById('mobile-detail');
 
+    // Marker icon
     const cocktailIcon = L.divIcon({
       html: '<i class="fa-solid fa-martini-glass-citrus custom-marker"></i>',
       className: '', iconSize: [24,24], iconAnchor: [12,24], popupAnchor: [0,-24]
     });
 
-    const makePopupLinks = (bar) => {
-      const m = bar.menuUrl || fallbackMenu(bar.name);
-      const i = bar.instagramUrl || fallbackInsta(bar.name);
-      const g = bar.gmapsUrl;
-      return `
-      <div class="popup-links flex flex-wrap items-center gap-3 mt-2 text-sm">
-        <a target="_blank" rel="noopener" href="${m}">Menu</a>
+    const group = L.featureGroup();
+
+    // Build link row
+    const makeLinks = (name) => `
+      <div class="flex flex-wrap items-center gap-3 mt-2 text-sm">
+        <a class="linklike" target="_blank" rel="noopener" href="${toMenuSearch(name)}">Menu</a>
         <span class="text-gray-400" aria-hidden="true">·</span>
-        <a target="_blank" rel="noopener" href="${i}">Instagram</a>
+        <a class="linklike" target="_blank" rel="noopener" href="${toInstaSearch(name)}">Instagram</a>
         <span class="text-gray-400" aria-hidden="true">·</span>
-        <a target="_blank" rel="noopener" href="${g}">Google Maps</a>
+        <a class="linklike" target="_blank" rel="noopener" href="${toMaps(name)}">Google Maps</a>
       </div>`;
-    };
 
-    // Build Hooch’s Haute-Takes section for a popup (big icon, big paws, no circle)
-    function hoochSection(bar) {
-      const r = bar.hoochReview;
-      if (!r) return '';
-      return `
-        <div class="mt-3">
-          <div class="popup-section-title flex items-center gap-3">
-            <span class="hooch-icon inline-flex items-center justify-center">
-              <img src="./hooch_critic.png" alt="Hooch the Husky — house critic" class="hooch-img">
-            </span>
-            <span>Hooch’s Haute-Takes</span>
-            <span class="ml-auto text-sm font-semibold text-gray-800">${r.verdict}</span>
-            ${renderPaws(r.rating, false)}
+    // Mobile detail renderer
+    function renderMobileDetail(bar) {
+      if (!bar) { detailCard.classList.add('hidden'); return; }
+      detailCard.classList.remove('hidden');
+      const hooch = bar.hoochReview ? `
+        <div class="hooch-row" aria-label="Hooch’s Haute-Takes">
+          <img src="./hooch_critic.png" alt="Hooch the Husky — house critic" class="hooch-stamp" width="28" height="28">
+          <div>
+            <div class="hooch-verdict">${bar.hoochReview.verdict} <span aria-label="${bar.hoochReview.rating} out of 5 paws">${paws(bar.hoochReview.rating)}</span></div>
+            ${bar.hoochReview.blurb ? `<div class="text-[.85rem] text-gray-700">${bar.hoochReview.blurb}</div>` : ``}
           </div>
-          <div class="mt-1 text-sm text-gray-800 leading-5">
-            <div><span class="font-semibold">Sniff Test:</span> ${r.sniff}</div>
-            <div><span class="font-semibold">Chow Down:</span> ${r.chow}</div>
-            <div><span class="font-semibold">Pup Perks:</span> ${r.perks}</div>
-            <div><span class="font-semibold">Pack Vibe:</span> ${r.vibe}</div>
-            <div><span class="font-semibold">Haute-Take:</span> ${r.haute}</div>
-            <div><span class="font-semibold">Tail Tally:</span> ${r.rating}/5 🐾 — why: ${r.why}.</div>
-          </div>
-        </div>`;
-    }
+        </div>` : ``;
 
-    function highlightsSection(bar) {
-      return `
+      detailCard.innerHTML = `
+        <div class="flex items-start gap-2">
+          <h3 class="text-lg font-extrabold text-gray-900">${bar.name}</h3>
+          ${bar.aviationAdj ? '<span class="badge"><i class="fa-solid fa-plane-departure"></i> Aviation-adjacent</span>' : ''}
+        </div>
+        ${hooch}
+        <p class="mt-1 text-gray-700">"${bar.vibe}"</p>
         <div class="mt-2 text-gray-800">
-          <div class="popup-section-title">Spotlight Sips &amp; Bites</div>
-          <ul class="mt-1 text-sm leading-6">
-            <li><span class="font-semibold">Drink:</span> ${bar.highlightedDrink}</li>
-            <li><span class="font-semibold">NA:</span> ${bar.highlightedNADrink}</li>
-            <li><span class="font-semibold">Food:</span> ${bar.highlightedFood}</li>
-          </ul>
-        </div>`;
+          <div class="font-semibold">Highlights:</div>
+          <p>${bar.highlights}</p>
+        </div>
+        ${makeLinks(bar.name)}
+      `;
+      // Scroll the card into view for small screens
+      detailCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    function hoochMiniLine(bar) {
-      if (!bar.hoochReview) return '';
-      return `
-        <div class="mt-1 text-[12.5px] text-gray-700 flex items-center gap-2">
-          <img src="./hooch_critic.png" alt="Hooch the Husky — house critic" class="" style="width:38px;height:auto;">
-          <span class="font-medium">${bar.hoochReview.verdict}</span>
-          ${renderPaws(bar.hoochReview.rating, true)}
-        </div>`;
+    // Sidebar / list item factory
+    function makeListItem(bar, coords) {
+      const li = document.createElement('li');
+      li.className = 'p-2 rounded-lg cursor-pointer list-item';
+      li.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="font-semibold">${bar.name}</span>
+          ${bar.aviationAdj ? '<span class="badge"><i class="fa-solid fa-plane-departure"></i> Adj.</span>' : ''}
+        </div>
+        ${bar.hoochReview ? `<div class="mt-1 text-xs text-rose-600 font-semibold">${bar.hoochReview.verdict} ${paws(bar.hoochReview.rating)}</div>` : ``}
+        <div class="mt-1 text-xs text-gray-700">${bar.vibe}</div>
+        <div class="mt-1 text-xs text-gray-700"><span class="font-semibold">Highlights:</span> ${bar.highlights}</div>
+        <div class="mt-1 text-xs flex flex-wrap gap-2">
+          <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${toMenuSearch(bar.name)}">Menu</a>
+          <span class="text-gray-400">·</span>
+          <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${toInstaSearch(bar.name)}">Instagram</a>
+          <span class="text-gray-400">·</span>
+          <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${toMaps(bar.name)}">Maps</a>
+        </div>
+      `;
+      li.setAttribute('role', 'button');
+      li.setAttribute('tabindex', '0');
+      li.addEventListener('click', () => {
+        map.flyTo(coords, 15, { duration: .6 });
+        if (isMobile) {
+          renderMobileDetail(bar);
+        } else {
+          // On desktop, open popup on the associated marker
+          const m = markerByName.get(bar.name);
+          if (m) m.openPopup();
+        }
+      });
+      li.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); li.click(); }
+      });
+      return li;
     }
 
-    function setActive(name) {
-      if (activeName && listItemByName.get(activeName)) {
-        listItemByName.get(activeName).setAttribute('aria-current','false');
-      }
-      const li = listItemByName.get(name);
-      if (li) {
-        li.setAttribute('aria-current','true');
-        li.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      }
-      activeName = name;
-    }
+    // Build markers + lists
+    const markerByName = new Map();
 
-    // Render markers + sidebar list
     bars.forEach(bar => {
-      const coords = [bar.lat, bar.lng];
+      const coords = barCoords[bar.name];
       const marker = L.marker(coords, { icon: cocktailIcon }).addTo(map);
+      markerByName.set(bar.name, marker);
 
+      // Desktop popup content
       const popup = `
         <div>
           <div class="flex items-center gap-2">
             <h3 class="popup-title">${bar.name}</h3>
             ${bar.aviationAdj ? '<span class="badge"><i class="fa-solid fa-plane-departure"></i> Aviation-adjacent</span>' : ''}
           </div>
-
-          <p class="mt-1 text-gray-700">${bar.vibe}</p>
-
-          ${highlightsSection(bar)}
-          ${hoochSection(bar)}
-
+          ${bar.hoochReview ? `
+            <div class="hooch-row" aria-label="Hooch’s Haute-Takes">
+              <img src="./hooch_critic.png" alt="Hooch the Husky — house critic" class="hooch-stamp" width="28" height="28">
+              <div>
+                <div class="hooch-verdict">${bar.hoochReview.verdict} <span aria-label="${bar.hoochReview.rating} out of 5 paws">${paws(bar.hoochReview.rating)}</span></div>
+                ${bar.hoochReview.blurb ? `<div class="text-[.8rem] text-gray-700">${bar.hoochReview.blurb}</div>` : ``}
+              </div>
+            </div>` : ``}
+          <p class="mt-1 text-gray-700">"${bar.vibe}"</p>
           <div class="mt-2 text-gray-800">
-            <div class="popup-section-title">Links</div>
-            ${makePopupLinks(bar)}
+            <div class="popup-section-title">Highlights:</div>
+            <p>${bar.highlights}</p>
           </div>
+          ${makeLinks(bar.name)}
         </div>`;
+
       marker.bindPopup(popup, { closeButton: true });
       group.addLayer(marker);
 
-      // Sidebar list item
-      const li = document.createElement('li');
-      li.className = 'p-3 rounded-lg cursor-pointer list-item';
-      li.innerHTML = `
-        <div class="flex items-center justify-between">
-          <span class="font-semibold">${bar.name}</span>
-          <div class="flex items-center gap-2">
-            ${bar.aviationAdj ? '<span class="badge"><i class="fa-solid fa-plane-departure"></i> Adj.</span>' : ''}
-            <span class="text-[11px] text-gray-600">~${bar.distanceMi} mi from Ockley Green</span>
-          </div>
-        </div>
-        ${hoochMiniLine(bar)}
-        <div class="mt-1 text-xs text-gray-700">${bar.vibe}</div>
-        <div class="mt-1 text-[11.5px] text-gray-800">
-          <span class="font-semibold">Drink:</span> ${bar.highlightedDrink} &nbsp;•&nbsp;
-          <span class="font-semibold">NA:</span> ${bar.highlightedNADrink} &nbsp;•&nbsp;
-          <span class="font-semibold">Food:</span> ${bar.highlightedFood}
-        </div>
-        <div class="mt-2 text-xs flex flex-wrap gap-2">
-          <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${bar.menuUrl || fallbackMenu(bar.name)}">Menu</a>
-          <span class="text-gray-400">·</span>
-          <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${bar.instagramUrl || fallbackInsta(bar.name)}">Instagram</a>
-          <span class="text-gray-400">·</span>
-          <a class="underline text-[var(--rose-600)]" target="_blank" rel="noopener" href="${bar.gmapsUrl}">Maps</a>
-        </div>
-      `;
-      li.setAttribute('role','button');
-      li.setAttribute('tabindex','0');
-      li.setAttribute('aria-current','false');
-      li.addEventListener('click', () => { map.flyTo(coords, 15, { duration:.6 }); marker.openPopup(); });
-      li.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); li.click(); }});
-      barList.appendChild(li);
-      listItemByName.set(bar.name, li);
-
-      marker.on('popupopen', () => setActive(bar.name));
-      marker.on('popupclose', () => {
-        const current = listItemByName.get(bar.name);
-        if (current) current.setAttribute('aria-current','false');
-        if (activeName === bar.name) activeName = null;
+      // Marker click behavior depends on viewport
+      marker.on('click', () => {
+        if (isMobile) {
+          renderMobileDetail(bar);
+        } else {
+          marker.openPopup();
+        }
       });
+
+      // Lists (desktop & mobile)
+      const liDesk = makeListItem(bar, coords);
+      const liMob  = makeListItem(bar, coords);
+      listDesktop.appendChild(liDesk);
+      listMobile.appendChild(liMob);
     });
 
     // Fit map to markers on load (good for mobile)
     map.whenReady(() => {
       if (group.getLayers().length) {
-        map.fitBounds(group.getBounds().pad(0.12), { animate:false });
+        map.fitBounds(group.getBounds().pad(0.12), { animate: false });
       }
     });
   </script>
